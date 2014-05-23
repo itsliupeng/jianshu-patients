@@ -23,7 +23,16 @@ describe PatientsController do
   # This should return the minimal set of attributes required to create a valid
   # Patient. As you add validations to Patient, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) { { "first_name" => "MyString" } }
+  let(:valid_attributes)  do
+    {
+      first_name: "Peng",
+      last_name: "Liu",
+      status: "Initial",
+      # location: mock_model(Location, name: "HZ"),
+      location_id: 1,
+      gender: "Male"
+    }
+  end
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
@@ -143,18 +152,41 @@ describe PatientsController do
   end
 
   describe "DELETE destroy" do
-    it "destroys the requested patient" do
-      patient = Patient.create! valid_attributes
-      expect {
+    describe "can set and save  @patient.is_deleted = true" do
+      it "destroys the requested patient" do
+        patient = Patient.create! valid_attributes
+        expect {
+          delete :destroy, {:id => patient.to_param}, valid_session
+        }.to change(Patient, :count).by(-1)
+      end
+
+      it "redirects to the patients list" do
+        patient = Patient.create! valid_attributes
         delete :destroy, {:id => patient.to_param}, valid_session
-      }.to change(Patient, :count).by(-1)
+        response.should redirect_to(patients_url)
+      end
     end
 
-    it "redirects to the patients list" do
-      patient = Patient.create! valid_attributes
-      delete :destroy, {:id => patient.to_param}, valid_session
-      response.should redirect_to(patients_url)
+    describe "cannot save @patient.is_deleted = true" do
+      before :each do
+        Patient.any_instance.stub(:save).and_return(false)
+      end 
+
+      it "not destroy the requested patient" do
+        patient = Patient.create! valid_attributes
+        expect {
+          delete :destroy, {:id => patient.to_param}, valid_session
+        }.to change(Patient, :count).by(0)
+      end
+
+      it "redirects to the @patient" do
+        patient = Patient.create! valid_attributes
+        delete :destroy, {:id => patient.to_param}, valid_session
+        response.should redirect_to(patient_url)
+
+      end
     end
+
   end
 
 end
