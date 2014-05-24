@@ -5,6 +5,7 @@ describe "Patients" do
     @l1 = FactoryGirl.create(:location)
     @p1 = FactoryGirl.create(:patient, location: @l1)
     @p2 = FactoryGirl.create(:patient, location: @l1) 
+    I18n.locale = "en"
   end
 
 
