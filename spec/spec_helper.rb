@@ -44,6 +44,9 @@ RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
 end
 
+# When unit testing views the controller is just a stub controller which inherits from ActionController::Base and not
+# ApplicationController. You need to override this stub if you need special behaviour like default_url_options, e.g:
+#
 class ActionView::TestCase::TestController
   def default_url_options(options={})
     { :locale => I18n.default_locale }
