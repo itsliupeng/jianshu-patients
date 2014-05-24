@@ -1,6 +1,8 @@
 class Patient < ActiveRecord::Base
   GENDER_TYPE =  ["Not Available", "Male", "Female"]
   STATUS_TYPE =  ["Initial", "Referred", "Treatment", "Closed"]
+  ## This may should put in locale file, put here just for simple
+  STATUS_TYPE_CN =  [["初始化", "Initial"], ["已预约","Referred"], ["治疗中", "Treatment"], ["已关闭","Closed"]]
 
 
   belongs_to :location

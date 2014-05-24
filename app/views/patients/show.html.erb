@@ -1,50 +1,50 @@
-<p id="notice"><%= notice %></p>
-<h2>Patient</h2>
+<!-- <p id="notice"><%= notice %></p> -->
+<h2><%= t '.title' %></h2>
 
 <p>
-  <strong>First name:</strong>
+<strong><%= t '.first_name' %>:</strong>
   <%= @patient.first_name %>
 </p>
 
 <p>
-  <strong>Middle name:</strong>
+<strong><%= t '.middle_name' %>:</strong>
   <%= @patient.middle_name %>
 </p>
 
 <p>
-  <strong>Last name:</strong>
+<strong><%= t '.last_name' %>:</strong>
   <%= @patient.last_name %>
 </p>
 
 <p>
-  <strong>Medical record number:</strong>
-  <%= @patient.medical_record_number %>
+<strong><%= t '.mr' %>:</strong>
+  <%= @patient.mr %>
 </p>
 
 <p>
-  <strong>Date of birth:</strong>
+<strong><%= t '.birthday' %>:</strong>
   <%= @patient.date_of_birth %>
 </p>
 
 <p>
-  <strong>Gender:</strong>
-  <%= @patient.gender %>
+<strong><%= t '.gender' %>:</strong>
+<%= t ".#{@patient.gender}" %>
 </p>
 
 <p>
-  <strong>Status:</strong>
-  <%= @patient.status %>
+<strong><%= t '.status' %>:</strong>
+  <%= t ".#{@patient.status}" %>
 </p>
 
 <p>
-  <strong>Viewed count:</strong>
+<strong><%= t '.viewed_count' %></strong>
   <%= @patient.viewed_count %>
 </p>
 
 <p>
-  <strong>Location:</strong>
+<strong><%= t '.location' %>:</strong>
   <%= @patient.location.name %>
 </p>
 
-<%= link_to 'Edit', edit_patient_path(@patient) %> |
-<%= link_to 'Back', patients_path %>
+<%= link_to t('.edit'), edit_patient_path(@patient) %> |
+<%= link_to t('.back'), patients_path %>

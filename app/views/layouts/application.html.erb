@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Patients</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+  <head>
+    <title>Patients</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
 
-<%= yield %>
+    <%= link_to_unless_current "English", locale: "en" %> |
+    <%= link_to_unless_current "中文", locale: "zh-CN" %>
 
-</body>
+    <div class="flash">
+      <% flash.each do |name, msg| %>
+        <p id=<%= name%>><%= msg %></p>
+      <% end %>
+    </div>
+    <%= yield %>
+
+  </body>
 </html>

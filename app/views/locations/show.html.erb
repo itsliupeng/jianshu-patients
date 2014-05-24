@@ -1,18 +1,18 @@
-<p id="notice"><%= notice %></p>
+<!-- <p id="notice"><%= notice %></p> -->
 
 <p>
-  <strong>Code:</strong>
+<strong><%= t '.code' %>:</strong>
   <%= @location.code %>
 </p>
 
 <p>
-  <strong>Name:</strong>
+<strong><%= t '.name' %>:</strong>
   <%= @location.name %>
 </p>
 
-<%= link_to 'Edit', edit_location_path(@location) %> |
-<%= link_to 'New', new_location_path %> |
-<%= link_to "Back_to_Patient_List", patients_path %>
+<%= link_to t('.edit'), edit_location_path(@location) %> |
+<%= link_to t('.new'), new_location_path %> |
+<%= link_to t('.back_home'), patients_path %>
 
 <ul>
   <% @location.patients.each do |patient| %>

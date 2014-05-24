@@ -1,16 +1,15 @@
-<h1>Listing patients</h1>
+<h1><%= t('.patients_list') %></h1>
 
 <table>
   <thead>
     <tr>
-      
-      <th>Medical record number</th>
-      <th>Fullname</th>
-      <th>Date of birth</th>
-      <th>Gender</th>
-      <th>Status</th>
-      <th>Viewed count</th>
-      <th>Location</th>
+      <th><%= t '.mr' %></th>
+      <th><%= t '.fullname' %></th>
+      <th><%= t '.age' %></th>
+      <th><%= t '.gender' %></th>
+      <th><%= t '.status' %></th>
+      <th><%= t '.viewed_count' %></th>
+      <th><%= t '.location' %></th>
       <th></th>
       <th></th>
       <th></th>
@@ -20,17 +19,16 @@
   <tbody>
     <% @patients.each do |patient| %>
       <tr>
-     
         <td><%= patient.mr %></td>
         <td><%= patient.fullname %></td>
         <td><%= patient.age_in_years %></td>
-        <td><%= patient.gender %></td>
-        <td><%= patient.status %></td>
+        <td><%= t ".#{patient.gender}" %></td>
+        <td><%= t ".#{patient.status}" %></td>
         <td><%= patient.viewed_count %></td>
         <td><%= link_to "#{patient.location.name}", patient.location %></td>
-        <td><%= link_to 'Show', patient %></td>
-        <td><%= link_to 'Edit', edit_patient_path(patient) %></td>
-        <td><%= link_to 'Destroy', patient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to "#{t '.show'}", patient %></td>
+        <td><%= link_to "#{t '.edit'}", edit_patient_path(patient) %></td>
+        <td><%= link_to "#{t '.destroy'}", patient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -38,4 +36,4 @@
 
 <br>
 
-<%= link_to 'New Patient', new_patient_path %>
+<%= link_to "#{t '.new_patient'}", new_patient_path %>

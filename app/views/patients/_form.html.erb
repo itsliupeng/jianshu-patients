@@ -1,8 +1,7 @@
 <%= form_for(@patient) do |f| %>
   <% if @patient.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@patient.errors.count, "error") %> prohibited this patient from being saved:</h2>
-
+      <h2><%= raw t('errors.template.header', count: @patient.errors.count, model: t('activerecord.models.patients')) %>.</h2>
       <ul>
       <% @patient.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -29,7 +28,7 @@
   </div>
   <div class="field">
     <%= f.label :date_of_birth %><br>
-    <%= f.date_select :date_of_birth %>
+    <%= f.date_select :date_of_birth, start_year: 120.years.ago.year, end_year: Date.today.year  %>
   </div>
   <div class="field">
     <%= f.label :gender, t('.gender') %><br>
@@ -39,19 +38,24 @@
       <% else %>
         <%= f.radio_button :gender, Patient::GENDER_TYPE[i] %>
       <% end %>
-      <%= f.label :gender, Patient::GENDER_TYPE[i] %>
+      <%= f.label :gender, t(".#{Patient::GENDER_TYPE[i]}") %>
     <% end %>
   </div>
   <div class="field">
     <%= f.label :status %><br>
-    <%= f.select :status, Patient::STATUS_TYPE, prompt: "Please choose status" %>
+    <% if params["locale"] == "zh-CN" %>
+      <%= f.select :status, Patient::STATUS_TYPE_CN, prompt: t('.status_prompt') %>
+    <% else %>
+      <%= f.select :status, Patient::STATUS_TYPE, prompt: t('.status_prompt') %>
+    <% end %>
+
   </div>
 
     <div class="field">
     <%= f.label :location_id %><br>
-    <%= f.collection_select :location_id, Location.all, :id, :name,  prompt: "Please choose location" %>
+    <%= f.collection_select :location_id, Location.all, :id, :name,  prompt: t(".location_prompt") %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit t(".s") %>
   </div>
 <% end %>
