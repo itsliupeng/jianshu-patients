@@ -11,4 +11,11 @@
 </p>
 
 <%= link_to 'Edit', edit_location_path(@location) %> |
-<%= link_to 'Back', locations_path %>
+<%= link_to 'New', new_location_path %> |
+<%= link_to "Back_to_Patient_List", patients_path %>
+
+<ul>
+  <% @location.patients.each do |patient| %>
+    <li><%= link_to patient.fullname, patient %></li>
+  <% end %>
+</ul>

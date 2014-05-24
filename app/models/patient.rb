@@ -13,17 +13,31 @@ class Patient < ActiveRecord::Base
   validates :status, inclusion: STATUS_TYPE
 
   default_scope {where(is_deleted: false)}
-  scope :on_treatment, -> {where(status: "Treatment")}
+  scope :onTreatment, -> {where(status: "Treatment")}
   
   def mr
     "MR" + medical_record_number.to_s.rjust(6, '0')
   end
   def fullname
-    "#{last_name}, #{first_name} #{middle_name}"
+    if middle_name
+      "#{last_name}, #{first_name} #{middle_name}"
+    else
+      "#{last_name}, #{fist_name}"
+    end
   end
 
   def age_in_years
     now = Date.today
     now.year - date_of_birth.year - (date_of_birth.change(year: now.year) > now ? 1 : 0)
+  end
+
+  def increment(by = 1)
+    self.viewed_count += by
+    self.save
+  end
+
+  def make_delete
+    self.is_deleted = true
+    self.save
   end
 end

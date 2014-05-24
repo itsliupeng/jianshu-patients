@@ -1,4 +1,5 @@
 <p id="notice"><%= notice %></p>
+<h2>Patient</h2>
 
 <p>
   <strong>First name:</strong>
@@ -41,13 +42,8 @@
 </p>
 
 <p>
-  <strong>Is deleted:</strong>
-  <%= @patient.is_deleted %>
-</p>
-
-<p>
   <strong>Location:</strong>
-  <%= @patient.location %>
+  <%= @patient.location.name %>
 </p>
 
 <%= link_to 'Edit', edit_patient_path(@patient) %> |

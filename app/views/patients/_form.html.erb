@@ -32,24 +32,24 @@
     <%= f.date_select :date_of_birth %>
   </div>
   <div class="field">
-    <%= f.label :gender %><br>
-    <%= f.text_field :gender %>
+    <%= f.label :gender, t('.gender') %><br>
+    <% Patient::GENDER_TYPE.each_index do |i|  %>
+      <% if i == 0 %>
+        <%= f.radio_button :gender, Patient::GENDER_TYPE[i], checked: true %>
+      <% else %>
+        <%= f.radio_button :gender, Patient::GENDER_TYPE[i] %>
+      <% end %>
+      <%= f.label :gender, Patient::GENDER_TYPE[i] %>
+    <% end %>
   </div>
   <div class="field">
     <%= f.label :status %><br>
-    <%= f.text_field :status %>
+    <%= f.select :status, Patient::STATUS_TYPE, prompt: "Please choose status" %>
   </div>
-  <div class="field">
-    <%= f.label :viewed_count %><br>
-    <%= f.number_field :viewed_count %>
-  </div>
-  <div class="field">
-    <%= f.label :is_deleted %><br>
-    <%= f.check_box :is_deleted %>
-  </div>
-  <div class="field">
+
+    <div class="field">
     <%= f.label :location_id %><br>
-    <%= f.text_field :location_id %>
+    <%= f.collection_select :location_id, Location.all, :id, :name,  prompt: "Please choose location" %>
   </div>
   <div class="actions">
     <%= f.submit %>
